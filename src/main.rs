@@ -1,23 +1,26 @@
 use std::collections::HashMap;
 
-fn print_arguments(args: &Vec<String>) {
-    println!("Provided arguments:");
+fn print_words(words: &Vec<String>) {
+    println!("Words from cli:");
 
-    for arg in args {
-        println!("  •{}", arg);
+    for word in words {
+        println!("  • {}", word);
     }
 }
 
 fn main() {
-    let args: Vec<String> = std::env::args().collect();
+    let words: Vec<String> = std::env::args().collect();
 
-    print_arguments(&args);
+    print_words(&words);
 
-    let statistics: HashMap<String, i16> = HashMap::new();
-    for arg in args {
-        match statistics.get(&arg) {
-            Some(word) => println!("New word found: {}", word),
-            None => println!("New word"),
+    let mut statistics: HashMap<String, i16> = HashMap::new();
+    for word in words {
+        match statistics.get(&word) {
+            Some(value) => println!("Word already exist: {}, {}", word, value),
+            None => {
+                println!("New word added: {}", word);
+                statistics.insert(word, 1);
+            }
         }
     }
 }
