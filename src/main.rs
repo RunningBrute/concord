@@ -15,8 +15,11 @@ fn main() {
 
     let mut statistics: HashMap<String, i16> = HashMap::new();
     for word in words {
-        match statistics.get(&word) {
-            Some(value) => println!("Word already exist: {}, {}", word, value),
+        match statistics.get_mut(&word) {
+            Some(value) => {
+                *value = *value + 1;
+                println!("Word already exist: {}, {}", word, *value);
+            }
             None => {
                 println!("New word added: {}", word);
                 statistics.insert(word, 1);
