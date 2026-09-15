@@ -5,7 +5,8 @@ fn main() {
 
     print_words(&words);
 
-    let _statistics: HashMap<String, i16> = get_words_stats(words);
+    // let _statistics: HashMap<String, i16> = get_words_stats(words);
+    get_all_stats(words);
 }
 
 fn print_words(words: &Vec<String>) {
@@ -14,6 +15,29 @@ fn print_words(words: &Vec<String>) {
     for word in words {
         println!("  • {}", word);
     }
+}
+
+type WordsStats = HashMap<String, i16>;
+type LettersStats = HashMap<char, i16>;
+
+struct Statistics {
+    words: WordsStats,
+    letters: LettersStats
+}
+
+impl Statistics {
+    fn new() -> Self {
+
+        Self {
+            words: HashMap::new(), 
+            letters: HashMap::new()
+        }
+    }
+}
+
+fn get_all_stats(words: Vec<String>) -> Statistics {
+    let result: Statistics = Statistics::new();
+    return result;
 }
 
 fn get_words_stats(words: Vec<String>) -> HashMap<String, i16> {
