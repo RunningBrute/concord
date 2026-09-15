@@ -1,4 +1,7 @@
+mod statistics;
+
 use std::collections::HashMap;
+use statistics::Statistics;
 
 fn main() {
     let words: Vec<String> = std::env::args().collect();
@@ -14,24 +17,6 @@ fn print_words(words: &Vec<String>) {
 
     for word in words {
         println!("  • {}", word);
-    }
-}
-
-type WordsStats = HashMap<String, i16>;
-type LettersStats = HashMap<char, i16>;
-
-struct Statistics {
-    words: WordsStats,
-    letters: LettersStats
-}
-
-impl Statistics {
-    fn new() -> Self {
-
-        Self {
-            words: HashMap::new(), 
-            letters: HashMap::new()
-        }
     }
 }
 
