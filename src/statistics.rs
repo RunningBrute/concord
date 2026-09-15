@@ -14,4 +14,12 @@ impl Statistics {
             letters: HashMap::new(),
         }
     }
+
+    pub fn words_mut(&mut self) -> &mut WordsStats {
+        return &mut self.words;
+    }
+
+    pub fn letters_mut(&mut self) -> &mut LettersStats {
+        return &mut self.letters;
+    }
 }
