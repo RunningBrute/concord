@@ -1,7 +1,7 @@
 mod statistics;
 
-use std::collections::HashMap;
 use statistics::Statistics;
+use std::collections::HashMap;
 
 fn main() {
     let words: Vec<String> = std::env::args().collect();
