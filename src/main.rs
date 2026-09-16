@@ -1,15 +1,24 @@
 mod statistics;
+mod file_reader;
 
 use statistics::Statistics;
+use file_reader::FileReader;
 use std::collections::HashMap;
+use std::path::Path;
+use std::ptr::read;
 
 fn main() {
-    let words: Vec<String> = std::env::args().collect();
+    //let words: Vec<String> = std::env::args().collect();
 
-    print_words(&words);
+    //print_words(&words);
 
     // let _statistics: HashMap<String, i16> = get_words_stats(words);
-    let _result: Statistics = get_all_stats(words);
+    //let _result: Statistics = get_all_stats(words);
+
+    let file_path = Path::new("data/input.txt");
+    let reader: FileReader = FileReader::new(&file_path);
+    print!("{}", reader.content());
+    //let _result: Statistics = get_all_stats(reader.content());
 }
 
 fn print_words(words: &Vec<String>) {
