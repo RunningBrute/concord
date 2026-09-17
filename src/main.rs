@@ -1,8 +1,8 @@
-mod statistics;
 mod file_reader;
+mod statistics;
 
-use statistics::Statistics;
 use file_reader::FileReader;
+use statistics::Statistics;
 use std::collections::HashMap;
 use std::path::Path;
 use std::str::SplitWhitespace;
@@ -20,7 +20,7 @@ fn main() {
 
     let mut done: bool = false;
     while !done {
-        match iter.next(){
+        match iter.next() {
             Some(elem) => input.push(elem),
             None => done = true,
         }

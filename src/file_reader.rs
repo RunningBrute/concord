@@ -3,7 +3,7 @@ use std::io::prelude::*;
 use std::path::Path;
 
 pub struct FileReader {
-    content: String
+    content: String,
 }
 
 impl FileReader {
@@ -20,9 +20,7 @@ impl FileReader {
             Ok(_) => print!("File loaded \n"),
         }
 
-        Self {
-            content: s
-        }
+        Self { content: s }
     }
 
     pub fn content(&self) -> &String {
