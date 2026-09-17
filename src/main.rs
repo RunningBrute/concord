@@ -5,51 +5,61 @@ use statistics::Statistics;
 use file_reader::FileReader;
 use std::collections::HashMap;
 use std::path::Path;
-use std::ptr::read;
+use std::str::SplitWhitespace;
 
 fn main() {
     //let words: Vec<String> = std::env::args().collect();
-
     //print_words(&words);
-
-    // let _statistics: HashMap<String, i16> = get_words_stats(words);
+    //let _statistics: HashMap<String, i16> = get_words_stats(words);
     //let _result: Statistics = get_all_stats(words);
 
-    let file_path = Path::new("data/input.txt");
+    let file_path: &Path = Path::new("data/input.txt");
     let reader: FileReader = FileReader::new(&file_path);
-    print!("{}", reader.content());
-    //let _result: Statistics = get_all_stats(reader.content());
+    let mut iter: SplitWhitespace = reader.content().split_whitespace();
+    let mut input: Vec<&str> = Vec::new();
+
+    let mut done: bool = false;
+    while !done {
+        match iter.next(){
+            Some(elem) => input.push(elem),
+            None => done = true,
+        }
+    }
+
+    print_words(&input);
+
+    let _result: Statistics = get_all_stats(&input);
 }
 
-fn print_words(words: &Vec<String>) {
-    println!("Words from cli:");
+fn print_words(words: &Vec<&str>) {
+    println!("All words:");
 
     for word in words {
         println!("  • {}", word);
     }
 }
 
-fn get_all_stats(words: Vec<String>) -> Statistics {
+fn get_all_stats(words: &Vec<&str>) -> Statistics {
     let mut result: Statistics = Statistics::new();
 
-    get_words_stats(words.clone(), &mut result.words_mut());
-    get_letters_stats(words.clone(), &mut result.letters_mut());
+    get_words_stats(words, &mut result.words_mut());
+    get_letters_stats(words, &mut result.letters_mut());
 
     return result;
 }
 
-fn get_words_stats(words: Vec<String>, mut stats: &mut HashMap<String, i16>) {
+fn get_words_stats(words: &Vec<&str>, mut stats: &mut HashMap<String, i16>) {
     // words.swap_remove(0);
 
-    for word in words {
-        match stats.get_mut(&word) {
+    for &word in words {
+        match stats.get_mut(word) {
             Some(value) => update_word_frequency(&word, value),
             None => add_new_word_to_stats(word, &mut stats),
         }
     }
 }
 
-fn get_letters_stats(words: Vec<String>, stats: &mut HashMap<char, i16>) {
+fn get_letters_stats(words: &Vec<&str>, stats: &mut HashMap<char, i16>) {
     for word in words {
         for letter in word.chars() {
             match stats.get_mut(&letter) {
@@ -66,12 +76,12 @@ fn get_letters_stats(words: Vec<String>, stats: &mut HashMap<char, i16>) {
     }
 }
 
-fn update_word_frequency(word: &String, frequency: &mut i16) {
+fn update_word_frequency(word: &str, frequency: &mut i16) {
     *frequency = *frequency + 1;
     println!("Word already exist: {}, {}", word, *frequency);
 }
 
-fn add_new_word_to_stats(word: String, stats: &mut HashMap<String, i16>) {
+fn add_new_word_to_stats(word: &str, stats: &mut HashMap<String, i16>) {
     println!("New word added: {}", word);
-    stats.insert(word, 1);
+    stats.insert(word.to_string(), 1);
 }
