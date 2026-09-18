@@ -3,7 +3,7 @@ mod statistics;
 
 use file_reader::FileReader;
 use statistics::Statistics;
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 use std::path::Path;
 use std::str::SplitWhitespace;
 
@@ -12,7 +12,7 @@ use crate::statistics::{LettersStats, WordsStats};
 fn main() {
     //let words: Vec<String> = std::env::args().collect();
     //print_words(&words);
-    //let _statistics: HashMap<String, i16> = get_words_stats(words);
+    //let _statistics: BTreeMap<String, i16> = get_words_stats(words);
     //let _result: Statistics = get_all_stats(words);
 
     let file_path: &Path = Path::new("data/input.txt");
@@ -69,7 +69,7 @@ fn get_all_stats(words: &[&str]) -> Statistics {
     return result;
 }
 
-fn get_words_stats(words: &[&str], mut stats: &mut HashMap<String, i16>) {
+fn get_words_stats(words: &[&str], mut stats: &mut BTreeMap<String, i16>) {
     // words.swap_remove(0);
 
     for &word in words {
@@ -80,7 +80,7 @@ fn get_words_stats(words: &[&str], mut stats: &mut HashMap<String, i16>) {
     }
 }
 
-fn get_letters_stats(words: &[&str], stats: &mut HashMap<char, i16>) {
+fn get_letters_stats(words: &[&str], stats: &mut BTreeMap<char, i16>) {
     for word in words {
         for letter in word.chars() {
             match stats.get_mut(&letter) {
@@ -102,7 +102,7 @@ fn update_word_frequency(word: &str, frequency: &mut i16) {
     println!("Word already exist: {}, {}", word, *frequency);
 }
 
-fn add_new_word_to_stats(word: &str, stats: &mut HashMap<String, i16>) {
+fn add_new_word_to_stats(word: &str, stats: &mut BTreeMap<String, i16>) {
     println!("New word added: {}", word);
     stats.insert(word.to_string(), 1);
 }

@@ -1,7 +1,7 @@
-use std::collections::HashMap;
+use std::collections::BTreeMap;
 
-pub type WordsStats = HashMap<String, i16>;
-pub type LettersStats = HashMap<char, i16>;
+pub type WordsStats = BTreeMap<String, i16>;
+pub type LettersStats = BTreeMap<char, i16>;
 pub struct Statistics {
     words: WordsStats,
     letters: LettersStats,
@@ -10,8 +10,8 @@ pub struct Statistics {
 impl Statistics {
     pub fn new() -> Self {
         Self {
-            words: HashMap::new(),
-            letters: HashMap::new(),
+            words: BTreeMap::new(),
+            letters: BTreeMap::new(),
         }
     }
 
