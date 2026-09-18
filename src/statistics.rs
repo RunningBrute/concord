@@ -15,6 +15,14 @@ impl Statistics {
         }
     }
 
+    pub fn words(&self) -> &WordsStats {
+        return &self.words;
+    }
+
+    pub fn letters(&self) -> &LettersStats {
+        return &self.letters;
+    }
+
     pub fn words_mut(&mut self) -> &mut WordsStats {
         return &mut self.words;
     }
