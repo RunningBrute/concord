@@ -31,7 +31,7 @@ fn main() {
     let _result: Statistics = get_all_stats(&input);
 }
 
-fn print_words(words: &Vec<&str>) {
+fn print_words(words: &[&str]) {
     println!("All words:");
 
     for word in words {
@@ -39,7 +39,7 @@ fn print_words(words: &Vec<&str>) {
     }
 }
 
-fn get_all_stats(words: &Vec<&str>) -> Statistics {
+fn get_all_stats(words: &[&str]) -> Statistics {
     let mut result: Statistics = Statistics::new();
 
     get_words_stats(words, &mut result.words_mut());
@@ -48,7 +48,7 @@ fn get_all_stats(words: &Vec<&str>) -> Statistics {
     return result;
 }
 
-fn get_words_stats(words: &Vec<&str>, mut stats: &mut HashMap<String, i16>) {
+fn get_words_stats(words: &[&str], mut stats: &mut HashMap<String, i16>) {
     // words.swap_remove(0);
 
     for &word in words {
@@ -59,7 +59,7 @@ fn get_words_stats(words: &Vec<&str>, mut stats: &mut HashMap<String, i16>) {
     }
 }
 
-fn get_letters_stats(words: &Vec<&str>, stats: &mut HashMap<char, i16>) {
+fn get_letters_stats(words: &[&str], stats: &mut HashMap<char, i16>) {
     for word in words {
         for letter in word.chars() {
             match stats.get_mut(&letter) {
