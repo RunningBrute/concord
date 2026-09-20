@@ -1,5 +1,6 @@
 mod file_reader;
 mod statistics;
+mod stats_printer;
 
 use file_reader::FileReader;
 use statistics::Statistics;
@@ -7,7 +8,7 @@ use std::collections::BTreeMap;
 use std::path::Path;
 use std::str::SplitWhitespace;
 
-use crate::statistics::{LettersStats, WordsStats};
+use crate::stats_printer::{*};
 
 fn main() {
     //let words: Vec<String> = std::env::args().collect();
@@ -34,30 +35,6 @@ fn main() {
 
     print_words_stats(&result.words());
     print_letters_stats(&result.letters());
-}
-
-fn print_words_stats(words: &WordsStats) {
-    let words_count = words.iter().count();
-    for word in words {
-        let occurences: f32 = (*word.1 as f32 / words_count as f32) * 100.0;
-        println!("Word: {}, occurences: {} %", word.0, occurences);
-    }
-}
-
-fn print_letters_stats(letters: &LettersStats) {
-    let letters_count = letters.iter().count();
-    for letter in letters {
-        let occurences: f32 = (*letter.1 as f32 / letters_count as f32) * 100.0;
-        println!("Letter: {}, occurences: {} %", letter.0, occurences);
-    }
-}
-
-fn print_words(words: &[&str]) {
-    println!("All words:");
-
-    for word in words {
-        println!("  • {}", word);
-    }
 }
 
 fn get_all_stats(words: &[&str]) -> Statistics {
