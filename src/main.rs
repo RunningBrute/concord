@@ -3,12 +3,12 @@ mod statistics;
 mod stats_printer;
 
 use file_reader::FileReader;
-use statistics::Statistics;
 use statistics::get_all_stats;
+use statistics::Statistics;
 use std::path::Path;
 use std::str::SplitWhitespace;
 
-use crate::stats_printer::{*};
+use crate::stats_printer::*;
 
 fn main() {
     //let words: Vec<String> = std::env::args().collect();

@@ -31,9 +31,9 @@ impl FileReader {
 #[cfg(test)]
 mod tests {
 
-use super::*;
+    use super::*;
 
-    fn create_example_file(path: &Path, content: &str){
+    fn create_example_file(path: &Path, content: &str) {
         let display = path.display();
 
         let mut file = match File::create(&path) {
@@ -48,7 +48,14 @@ use super::*;
     }
 
     #[test]
-    fn empty_file(){
+    #[should_panic(expected = "Cant open invalid_path.txt: No such file or directory (os error 2)")]
+    fn should_panic_when_file_not_exist() {
+        let path: &Path = Path::new("invalid_path.txt");
+        let _: FileReader = FileReader::new(path);
+    }
+
+    #[test]
+    fn empty_file() {
         static EXPECTED_CONTENT: &str = "";
         let path: &Path = Path::new("example_file.txt");
         create_example_file(path, EXPECTED_CONTENT);
@@ -59,7 +66,7 @@ use super::*;
     }
 
     #[test]
-    fn file_with_content(){
+    fn file_with_content() {
         static EXPECTED_CONTENT: &str = "hello world a ab abc";
         let path = Path::new("example_file.txt");
         create_example_file(path, EXPECTED_CONTENT);

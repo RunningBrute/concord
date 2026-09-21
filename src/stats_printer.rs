@@ -1,4 +1,3 @@
-
 use crate::statistics::{LettersStats, WordsStats};
 
 pub fn print_words_stats(words: &WordsStats) {
