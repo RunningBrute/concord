@@ -60,14 +60,13 @@ use super::*;
     }
 
     #[test]
-    fn test_test(){
-        static EXAMPLE_FILE: &str = "hello world a ab abc";
+    fn file_with_content(){
+        static EXPECTED_CONTENT: &str = "hello world a ab abc";
         let path = Path::new("example_file.txt");
-        create_example_file(&path, &EXAMPLE_FILE);
+        create_example_file(path, EXPECTED_CONTENT);
 
-        let path = Path::new("example_file.txt");
         let file_reader: FileReader = FileReader::new(path);
 
-        print!("{}", file_reader.content());
+        assert_eq!(file_reader.content(), EXPECTED_CONTENT);
     }
 }
