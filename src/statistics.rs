@@ -73,12 +73,14 @@ fn get_letters_stats(words: &[&str], stats: &mut BTreeMap<char, i16>) {
 /// when function `update_word_frequency` is called.
 /// 
 /// ```
+/// use concord::statistics::update_word_frequency;
+/// 
 /// let mut frequency: i16 = 0;
 /// let word: String = String::from("hello");
 /// update_word_frequency(&word, &mut frequency);
 /// assert_eq!(frequency, 1);
 /// ```
-pub fn update_word_frequency(word: &str, frequency: &mut i16) {
+fn update_word_frequency(word: &str, frequency: &mut i16) {
     *frequency = *frequency + 1;
     println!("Word already exist: {}, {}", word, *frequency);
 }
