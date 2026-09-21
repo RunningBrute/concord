@@ -17,7 +17,7 @@ pub fn print_letters_stats(letters: &LettersStats) {
     }
 }
 
-pub fn print_words(words: &[&str]) {
+pub fn _print_words(words: &[&str]) {
     println!("All words:");
 
     for word in words {

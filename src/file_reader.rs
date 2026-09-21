@@ -30,7 +30,6 @@ impl FileReader {
 
 #[cfg(test)]
 mod tests {
-    use crate::file_reader;
 
 use super::*;
 
