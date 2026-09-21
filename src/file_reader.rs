@@ -30,7 +30,9 @@ impl FileReader {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::file_reader;
+
+use super::*;
 
     fn create_example_file(path: &Path, content: &str){
         let display = path.display();
@@ -44,6 +46,17 @@ mod tests {
             Err(why) => panic!("couldn't write to {}: {}", display, why),
             Ok(_) => println!("successfully wrote to {}", display),
         }
+    }
+
+    #[test]
+    fn empty_file(){
+        static EXPECTED_CONTENT: &str = "";
+        let path: &Path = Path::new("example_file.txt");
+        create_example_file(path, EXPECTED_CONTENT);
+
+        let file_reader: FileReader = FileReader::new(path);
+
+        assert_eq!(file_reader.content(), EXPECTED_CONTENT);
     }
 
     #[test]
