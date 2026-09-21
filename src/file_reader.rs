@@ -57,7 +57,7 @@ mod tests {
     #[test]
     fn empty_file() {
         static EXPECTED_CONTENT: &str = "";
-        let path: &Path = Path::new("example_file.txt");
+        let path: &Path = Path::new("empty_file.txt");
         create_example_file(path, EXPECTED_CONTENT);
 
         let file_reader: FileReader = FileReader::new(path);
