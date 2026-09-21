@@ -27,3 +27,34 @@ impl FileReader {
         return &self.content;
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn create_example_file(){
+        static EXAMPLE_FILE: &str = "hello world a ab abc";
+        let path = Path::new("example_file.txt");
+        let display = path.display();
+
+        let mut file = match File::create(&path) {
+            Err(why) => panic!("couldn't create {}: {}", display, why),
+            Ok(file) => file,
+        };
+
+        match file.write_all(EXAMPLE_FILE.as_bytes()) {
+            Err(why) => panic!("couldn't write to {}: {}", display, why),
+            Ok(_) => println!("successfully wrote to {}", display),
+        }
+    }
+
+    #[test]
+    fn test_test(){
+        create_example_file();
+
+        let path = Path::new("example_file.txt");
+        let file_reader: FileReader = FileReader::new(path);
+
+        print!("{}", file_reader.content());
+    }
+}
