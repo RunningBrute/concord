@@ -32,9 +32,7 @@ impl FileReader {
 mod tests {
     use super::*;
 
-    fn create_example_file(){
-        static EXAMPLE_FILE: &str = "hello world a ab abc";
-        let path = Path::new("example_file.txt");
+    fn create_example_file(path: &Path, content: &str){
         let display = path.display();
 
         let mut file = match File::create(&path) {
@@ -42,7 +40,7 @@ mod tests {
             Ok(file) => file,
         };
 
-        match file.write_all(EXAMPLE_FILE.as_bytes()) {
+        match file.write_all(content.as_bytes()) {
             Err(why) => panic!("couldn't write to {}: {}", display, why),
             Ok(_) => println!("successfully wrote to {}", display),
         }
@@ -50,7 +48,9 @@ mod tests {
 
     #[test]
     fn test_test(){
-        create_example_file();
+        static EXAMPLE_FILE: &str = "hello world a ab abc";
+        let path = Path::new("example_file.txt");
+        create_example_file(&path, &EXAMPLE_FILE);
 
         let path = Path::new("example_file.txt");
         let file_reader: FileReader = FileReader::new(path);
