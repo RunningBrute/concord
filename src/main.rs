@@ -19,7 +19,7 @@ fn main() {
     //print_letters_stats(&result.letters());
 
     let file_path: &Path = Path::new("data/input.txt");
-    let reader: FileReader = FileReader::new(&file_path);
+    let reader: FileReader = FileReader::new(&file_path).unwrap();
     let mut iter: SplitWhitespace = reader.content().split_whitespace();
     let mut input: Vec<&str> = Vec::new();
 

@@ -1,4 +1,3 @@
-use std::fmt::Error;
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
@@ -8,12 +7,9 @@ pub struct FileReader {
 }
 
 impl FileReader {
-    pub fn new(path: &Path) -> Self {
+    pub fn new(path: &Path) -> Result<Self, std::io::Error> {
         let path_name = path.display();
-        let mut file = match File::open(&path) {
-            Err(why) => panic!("Cant open {}: {}", path_name, why),
-            Ok(file) => file,
-        };
+        let mut file = File::open(&path)?;
 
         let mut s = String::new();
         match file.read_to_string(&mut s) {
@@ -21,7 +17,7 @@ impl FileReader {
             Ok(_) => print!("File loaded \n"),
         }
 
-        Self { content: s }
+        Ok(Self { content: s })
     }
 
     pub fn content(&self) -> &str {
@@ -49,10 +45,13 @@ mod tests {
     }
 
     #[test]
-    #[should_panic(expected = "Cant open invalid_path.txt: No such file or directory (os error 2)")]
+    #[should_panic(expected = "No such file or directory (os error 2)")]
     fn should_panic_when_file_not_exist() {
         let path: &Path = Path::new("invalid_path.txt");
-        let _: FileReader = FileReader::new(path);
+        let _: FileReader = match FileReader::new(path) {
+            Err(what) => panic!("{}", what),
+            Ok(reader) => reader
+        };
     }
 
     #[test]
@@ -61,7 +60,7 @@ mod tests {
         let path: &Path = Path::new("empty_file.txt");
         create_example_file(path, EXPECTED_CONTENT);
 
-        let file_reader: FileReader = FileReader::new(path);
+        let file_reader: FileReader = FileReader::new(path).unwrap();
 
         assert_eq!(file_reader.content(), EXPECTED_CONTENT);
     }
@@ -72,7 +71,7 @@ mod tests {
         let path = Path::new("example_file.txt");
         create_example_file(path, EXPECTED_CONTENT);
 
-        let file_reader: FileReader = FileReader::new(path);
+        let file_reader: FileReader = FileReader::new(path).unwrap();
 
         assert_eq!(file_reader.content(), EXPECTED_CONTENT);
     }
