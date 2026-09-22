@@ -1,3 +1,4 @@
+use std::fmt::Error;
 use std::fs::File;
 use std::io::prelude::*;
 use std::path::Path;
@@ -23,7 +24,7 @@ impl FileReader {
         Self { content: s }
     }
 
-    pub fn content(&self) -> &String {
+    pub fn content(&self) -> &str {
         return &self.content;
     }
 }
