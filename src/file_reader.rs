@@ -63,6 +63,8 @@ mod tests {
         let file_reader: FileReader = FileReader::new(path).unwrap();
 
         assert_eq!(file_reader.content(), EXPECTED_CONTENT);
+
+        let _ = std::fs::remove_file(path);
     }
 
     #[test]
@@ -74,5 +76,7 @@ mod tests {
         let file_reader: FileReader = FileReader::new(path).unwrap();
 
         assert_eq!(file_reader.content(), EXPECTED_CONTENT);
+
+        let _ = std::fs::remove_file(path);
     }
 }
