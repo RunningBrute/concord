@@ -1,7 +1,7 @@
-use std::{collections::BTreeMap};
+use std::collections::HashMap;
 
-pub type WordsStats = BTreeMap<String, i16>;
-pub type LettersStats = BTreeMap<char, i16>;
+pub type WordsStats = HashMap<String, i16>;
+pub type LettersStats = HashMap<char, i16>;
 pub struct Statistics {
     words: WordsStats,
     letters: LettersStats,
@@ -32,9 +32,9 @@ impl Statistics {
     }
 }
 
-fn get_words_stats(words: &[&str]) -> BTreeMap<String, i16> {
+fn get_words_stats(words: &[&str]) -> HashMap<String, i16> {
     // words.swap_remove(0);
-    let mut stats = BTreeMap::new();
+    let mut stats = HashMap::new();
 
     for &word in words {
         match stats.get_mut(word) {
@@ -46,8 +46,8 @@ fn get_words_stats(words: &[&str]) -> BTreeMap<String, i16> {
     stats
 }
 
-fn get_letters_stats(words: &[&str]) -> BTreeMap<char, i16> {
-    let mut stats = BTreeMap::new();
+fn get_letters_stats(words: &[&str]) -> HashMap<char, i16> {
+    let mut stats = HashMap::new();
 
     for word in words {
         for letter in word.chars() {
@@ -83,7 +83,7 @@ fn update_word_frequency(word: &str, frequency: &mut i16) {
     println!("Word already exist: {}, {}", word, *frequency);
 }
 
-fn add_new_word_to_stats(word: &str, stats: &mut BTreeMap<String, i16>) {
+fn add_new_word_to_stats(word: &str, stats: &mut HashMap<String, i16>) {
     println!("New word added: {}", word);
     stats.insert(word.to_string(), 1);
 }
