@@ -1,4 +1,4 @@
-use std::collections::BTreeMap;
+use std::{collections::BTreeMap};
 
 pub type WordsStats = BTreeMap<String, i16>;
 pub type LettersStats = BTreeMap<char, i16>;
@@ -8,10 +8,10 @@ pub struct Statistics {
 }
 
 impl Statistics {
-    pub fn new() -> Self {
+    pub fn from(words: &[&str]) -> Self {
         Self {
-            words: BTreeMap::new(),
-            letters: BTreeMap::new(),
+            words: get_words_stats(words),
+            letters: get_letters_stats(words),
         }
     }
 
@@ -23,26 +23,18 @@ impl Statistics {
         return &self.letters;
     }
 
-    pub fn words_mut(&mut self) -> &mut WordsStats {
+    pub fn _words_mut(&mut self) -> &mut WordsStats {
         return &mut self.words;
     }
 
-    pub fn letters_mut(&mut self) -> &mut LettersStats {
+    pub fn _letters_mut(&mut self) -> &mut LettersStats {
         return &mut self.letters;
     }
 }
 
-pub fn get_all_stats(words: &[&str]) -> Statistics {
-    let mut result: Statistics = Statistics::new();
-
-    get_words_stats(words, &mut result.words_mut());
-    get_letters_stats(words, &mut result.letters_mut());
-
-    return result;
-}
-
-fn get_words_stats(words: &[&str], mut stats: &mut BTreeMap<String, i16>) {
+fn get_words_stats(words: &[&str]) -> BTreeMap<String, i16> {
     // words.swap_remove(0);
+    let mut stats = BTreeMap::new();
 
     for &word in words {
         match stats.get_mut(word) {
@@ -50,9 +42,13 @@ fn get_words_stats(words: &[&str], mut stats: &mut BTreeMap<String, i16>) {
             None => add_new_word_to_stats(word, &mut stats),
         }
     }
+
+    stats
 }
 
-fn get_letters_stats(words: &[&str], stats: &mut BTreeMap<char, i16>) {
+fn get_letters_stats(words: &[&str]) -> BTreeMap<char, i16> {
+    let mut stats = BTreeMap::new();
+
     for word in words {
         for letter in word.chars() {
             match stats.get_mut(&letter) {
@@ -67,6 +63,8 @@ fn get_letters_stats(words: &[&str], stats: &mut BTreeMap<char, i16>) {
             }
         }
     }
+
+    stats
 }
 
 /// Function update `frequency` parameter by one each time

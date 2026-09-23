@@ -3,7 +3,6 @@ mod statistics;
 mod stats_printer;
 
 use file_reader::FileReader;
-use statistics::get_all_stats;
 use statistics::Statistics;
 use std::path::Path;
 use std::str::SplitWhitespace;
@@ -33,7 +32,7 @@ fn main() {
 
     //print_words(&input);
 
-    let result: Statistics = get_all_stats(&input);
+    let result: Statistics = Statistics::from(&input);
 
     print_words_stats(&result.words());
     print_letters_stats(&result.letters());
