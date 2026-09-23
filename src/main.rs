@@ -5,7 +5,6 @@ mod stats_printer;
 use file_reader::FileReader;
 use statistics::Statistics;
 use std::path::Path;
-use std::str::SplitWhitespace;
 
 use crate::stats_printer::*;
 
@@ -19,16 +18,7 @@ fn main() {
 
     let file_path: &Path = Path::new("data/input.txt");
     let reader: FileReader = FileReader::new(&file_path).unwrap();
-    let mut iter: SplitWhitespace = reader.content().split_whitespace();
-    let mut input: Vec<&str> = Vec::new();
-
-    let mut done: bool = false;
-    while !done {
-        match iter.next() {
-            Some(elem) => input.push(elem),
-            None => done = true,
-        }
-    }
+    let input: Vec<&str> = reader.content().split_whitespace().collect();
 
     //print_words(&input);
 
