@@ -1,4 +1,4 @@
-use crate::statistics::{LettersStats, WordsStats};
+use crate::statistics::{word::WordsStats, letter::LettersStats};
 
 pub fn print_words_stats(words: &WordsStats) {
     let words_count = words.iter().count();
