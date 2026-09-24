@@ -2,6 +2,17 @@ use std::collections::HashMap;
 
 pub type WordsStats = HashMap<String, i16>;
 
+/// Function return map with frequency of word in input vector of string.
+/// 
+/// ```
+/// use concord::statistics::word;
+/// 
+/// let input: Vec<&str> = vec!["hello", "world", "hello"];
+/// let result = word::get_words_stats(&input);
+/// 
+/// assert_eq!(*result.get("hello").unwrap(), 2);
+/// assert_eq!(*result.get("world").unwrap(), 1);
+/// ```
 pub fn get_words_stats(words: &[&str]) -> WordsStats {
     // words.swap_remove(0);
     let mut stats = WordsStats::new();
@@ -16,17 +27,6 @@ pub fn get_words_stats(words: &[&str]) -> WordsStats {
     stats
 }
 
-/// Function update `frequency` parameter by one each time
-/// when function `update_word_frequency` is called.
-/// 
-/// ```
-/// use concodr::statistics::word;
-/// 
-/// let mut frequency: i16 = 0;
-/// let word: String = String::from("hello");
-/// update_word_frequency(&word, &mut frequency);
-/// assert_eq!(frequency, 1);
-/// ```
 fn update_word_frequency(word: &str, frequency: &mut i16) {
     *frequency = *frequency + 1;
     println!("Word already exist: {}, {}", word, *frequency);
